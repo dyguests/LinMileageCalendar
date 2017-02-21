@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Deprecated this is just used to convert to code-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:background="#d3ffeb"
+                tools:layout_height="50dp"
+                tools:layout_width="50dp">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="99"
+            android:textColor="@color/day_view_text"
+            android:textSize="@dimen/day_view_text"
+            tools:text="1"/>
+
+        <TextView
+            android:id="@+id/mileage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="999km"
+            android:textColor="@color/day_view_text_secondary"
+            android:textSize="@dimen/day_view_text_secondary"
+            tools:text="123km"/>
+    </LinearLayout>
+</RelativeLayout>
