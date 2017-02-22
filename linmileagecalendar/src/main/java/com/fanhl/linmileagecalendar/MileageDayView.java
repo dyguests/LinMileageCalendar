@@ -1,6 +1,7 @@
 package com.fanhl.linmileagecalendar;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
@@ -106,5 +107,10 @@ public class MileageDayView extends RelativeLayout {
         }
         this.date = date;
         dayTv.setText(DateUtil.date2str(date, DateUtil.FORMAT_d));
+        if (isInEditMode()) {
+            if (date.getDate() % 4 == 0) {
+                setBackgroundColor(Color.RED);
+            }
+        }
     }
 }
