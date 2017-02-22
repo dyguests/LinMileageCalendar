@@ -24,6 +24,8 @@ public class MonthView extends LinearLayout {
     private LinearLayout monthHeader;
     private GridView daysGridView;
 
+    private DayAdapter dayAdapter;
+
     private Date date;
 
     public MonthView(Context context) {
@@ -80,7 +82,24 @@ public class MonthView extends LinearLayout {
     private void initData(Context context) {
         if (isInEditMode()) date = DateUtil.getFirstDayInMonth(new Date());
         date = DateUtil.getFirstDayInMonth(new Date());// FIXME: 2017/2/21 调试用
-        daysGridView.setAdapter(new DayAdapter(context));
+        dayAdapter = new DayAdapter(context);
+        daysGridView.setAdapter(dayAdapter);
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        if (this.date == date) {
+            return;
+        }
+        this.date = date;
+        notifyDataChanged();
+    }
+
+    private void notifyDataChanged() {
+        dayAdapter.notifyDataSetChanged();
     }
 
     public class DayAdapter extends BaseAdapter {
