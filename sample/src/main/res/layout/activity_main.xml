@@ -20,7 +20,12 @@
     <!--<com.fanhl.linmileagecalendar.MileageDayView-->
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="match_parent"/>-->
-    <com.fanhl.linmileagecalendar.MonthView
+
+    <!--<com.fanhl.linmileagecalendar.MonthView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"/>-->
+
+    <com.fanhl.linmileagecalendar.MonthGridView
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 </LinearLayout>

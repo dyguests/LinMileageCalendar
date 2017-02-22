@@ -99,6 +99,8 @@ public class MonthView extends LinearLayout {
     }
 
     private void notifyDataChanged() {
+        // FIXME: 2017/2/22 date to MonthGridView
+
         dayAdapter.notifyDataSetChanged();
     }
 
