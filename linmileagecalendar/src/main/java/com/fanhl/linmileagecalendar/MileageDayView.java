@@ -10,11 +10,20 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.fanhl.linmileagecalendar.util.DateUtil;
+
+import java.util.Date;
+
 /**
  * 天（包含mileage)
  * Created by fanhl on 2017/2/21.
  */
 public class MileageDayView extends RelativeLayout {
+    private Date date;
+
+    private TextView dayTv;
+    private TextView mileageTv;
+
     public MileageDayView(Context context) {
         super(context);
         init(context, null, 0, 0);
@@ -58,25 +67,25 @@ public class MileageDayView extends RelativeLayout {
         layout_847.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
         linearLayout_1.setLayoutParams(layout_847);
 
-        TextView day = new TextView(context);
-        day.setId(R.id.day);
-        if (isInEditMode()) day.setText("1");
-        day.setText("1");// FIXME: 2017/2/21 test
-        day.setTextColor(getResources().getColorStateList(R.color.day_view_text));
-        day.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.day_view_text));
+        dayTv = new TextView(context);
+        dayTv.setId(R.id.day);
+        if (isInEditMode()) dayTv.setText("1");
+        dayTv.setText("1");// FIXME: 2017/2/21 test
+        dayTv.setTextColor(getResources().getColorStateList(R.color.day_view_text));
+        dayTv.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.day_view_text));
         LayoutParams layout_300 = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-        day.setLayoutParams(layout_300);
-        linearLayout_1.addView(day);
+        dayTv.setLayoutParams(layout_300);
+        linearLayout_1.addView(dayTv);
 
-        TextView mileage = new TextView(context);
-        mileage.setId(R.id.mileage);
-        if (isInEditMode()) mileage.setText("123km");
-        mileage.setText("123km");// FIXME: 2017/2/21 test
-        mileage.setTextColor(getResources().getColorStateList(R.color.day_view_text_secondary));
-        mileage.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.day_view_text_secondary));
+        mileageTv = new TextView(context);
+        mileageTv.setId(R.id.mileage);
+        if (isInEditMode()) mileageTv.setText("123km");
+        mileageTv.setText("123km");// FIXME: 2017/2/21 test
+        mileageTv.setTextColor(getResources().getColorStateList(R.color.day_view_text_secondary));
+        mileageTv.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.day_view_text_secondary));
         LayoutParams layout_542 = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-        mileage.setLayoutParams(layout_542);
-        linearLayout_1.addView(mileage);
+        mileageTv.setLayoutParams(layout_542);
+        linearLayout_1.addView(mileageTv);
 //        relativeLayout_144.addView(linearLayout_1);
         addView(linearLayout_1);
     }
@@ -85,5 +94,17 @@ public class MileageDayView extends RelativeLayout {
     public float pixelsToSp(float px) {
         float scaledDensity = getResources().getDisplayMetrics().scaledDensity;
         return px / scaledDensity;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        if (this.date == date) {
+            return;
+        }
+        this.date = date;
+        dayTv.setText(DateUtil.date2str(date, DateUtil.FORMAT_d));
     }
 }
