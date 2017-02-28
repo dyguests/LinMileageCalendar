@@ -7,7 +7,6 @@ import java.util.Date;
 /**
  * Created by fanhl on 2017/2/21.
  */
-
 public class DateUtil {
     public static final String FORMAT_TIMESTAMP = "MMM dd, yyyy HH:mm:ss a";
     public static final String FORMAT_LONG = "yyyy-MM-dd HH:mm:ss";
@@ -147,5 +146,11 @@ public class DateUtil {
         return cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) &&
                 cal1.get(Calendar.MONTH) == cal2.get(Calendar.MONTH) &&
                 cal1.get(Calendar.WEEK_OF_MONTH) == cal2.get(Calendar.WEEK_OF_MONTH);
+    }
+
+    public static int getWeekCountInMonth(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return calendar.getActualMaximum(Calendar.WEEK_OF_MONTH);
     }
 }
