@@ -73,7 +73,12 @@ public class MileageDayView extends RelativeLayout {
         dayTv.setId(R.id.day);
         if (isInEditMode()) dayTv.setText("1");
         dayTv.setText("1");// FIXME: 2017/2/21 test
-        dayTv.setTextColor(getResources().getColorStateList(R.color.day_view_text));
+        if (date == null || !DateUtil.isWeekend(date)) {
+            dayTv.setTextColor(getResources().getColorStateList(R.color.day_view_text));
+        } else {
+            dayTv.setTextColor(getResources().getColorStateList(R.color.day_view_text_secondary));
+        }
+
         dayTv.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.day_view_text));
         LayoutParams layout_300 = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         dayTv.setLayoutParams(layout_300);
@@ -108,6 +113,14 @@ public class MileageDayView extends RelativeLayout {
         }
         this.date = date;
         dayTv.setText(DateUtil.date2str(date, DateUtil.FORMAT_d));
+        if (date == null || !DateUtil.isWeekend(date)) {
+            dayTv.setTextColor(getResources().getColorStateList(R.color.day_view_text));
+        } else {
+            dayTv.setTextColor(getResources().getColorStateList(R.color.day_view_text_secondary));
+        }
+        if (DateUtil.isSameDay(date, new Date())) {
+            setSelected(true);
+        }
     }
 
     public Float getMileage() {
@@ -130,5 +143,11 @@ public class MileageDayView extends RelativeLayout {
         }
 
         mileageTv.setText(mileageStr);
+    }
+
+    @Override public void setSelected(boolean selected) {
+        super.setSelected(selected);
+        dayTv.setSelected(selected);
+        mileageTv.setSelected(selected);
     }
 }
