@@ -81,4 +81,71 @@ public class DateUtil {
         calendar.add(Calendar.DAY_OF_MONTH, step);
         return calendar.getTime();
     }
+
+    /**
+     * 取得一周开始的一天(周日)
+     *
+     * @param date
+     * @return
+     */
+    public static Date getFirstDayInWeek(Date date) {
+        Date firstDate = null;
+        if (date != null) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+            calendar.set(Calendar.HOUR_OF_DAY, 0);
+            calendar.set(Calendar.MINUTE, 0);
+            calendar.set(Calendar.SECOND, 0);
+            calendar.set(Calendar.MILLISECOND, 0);
+
+            calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+            firstDate = calendar.getTime();
+        }
+        return firstDate;
+    }
+
+    /**
+     * 取得一周结束的一天(周六)
+     *
+     * @param date
+     * @return
+     */
+    public static Date getLastDayInWeek(Date date) {
+        Date firstDate = null;
+        if (date != null) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+
+            calendar.set(Calendar.HOUR_OF_DAY, 0);
+            calendar.set(Calendar.MINUTE, 0);
+            calendar.set(Calendar.SECOND, 0);
+            calendar.set(Calendar.MILLISECOND, 0);
+
+            calendar.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
+            firstDate = new Date(calendar.getTimeInMillis());
+        }
+        return firstDate;
+    }
+
+    /**
+     * 判断两个日期是不是在同一月
+     *
+     * @param date1
+     * @param date2
+     * @return
+     */
+    public static boolean isSameWeek(Date date1, Date date2) {
+        if (date1 == null || date2 == null) {
+            return false;
+        }
+
+        Calendar cal1 = Calendar.getInstance();
+        Calendar cal2 = Calendar.getInstance();
+        cal1.setTime(date1);
+        cal2.setTime(date2);
+
+        return cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) &&
+                cal1.get(Calendar.MONTH) == cal2.get(Calendar.MONTH) &&
+                cal1.get(Calendar.WEEK_OF_MONTH) == cal2.get(Calendar.WEEK_OF_MONTH);
+    }
 }
