@@ -60,13 +60,21 @@ public class MonthGridView extends ViewGroup {
 
         int childCount = getChildCount();
         int specSizeWidth = MeasureSpec.getSize(widthMeasureSpec);
+        int specModeWidth = MeasureSpec.getMode(widthMeasureSpec);
         int specSizeHeight = MeasureSpec.getSize(heightMeasureSpec);
+        int specModeHeight = MeasureSpec.getMode(heightMeasureSpec);
+//        if (true) throw new RuntimeException("specSizeWidth:" + specSizeWidth+" specSizeHeight"+specSizeHeight);
 
         setMeasuredDimension(specSizeWidth, specSizeHeight);
 
-        for (int i = 0; i < childCount; i++) {
-            View child = getChildAt(i);
-            this.measureChild(child, widthMeasureSpec, heightMeasureSpec);
+        if (date != null) {
+            int rowCount = getRowCount(date);
+
+            for (int i = 0; i < childCount; i++) {
+                View child = getChildAt(i);
+//                this.measureChild(child, widthMeasureSpec, heightMeasureSpec);
+                this.measureChild(child, MeasureSpec.makeMeasureSpec(specSizeWidth / 7, specModeWidth), MeasureSpec.makeMeasureSpec(specSizeHeight / rowCount, specModeHeight));
+            }
         }
     }
 
