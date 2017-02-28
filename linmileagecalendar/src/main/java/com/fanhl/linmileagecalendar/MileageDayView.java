@@ -82,7 +82,7 @@ public class MileageDayView extends RelativeLayout {
         mileageTv = new TextView(context);
         mileageTv.setId(R.id.mileage);
         if (isInEditMode()) mileageTv.setText("123km");
-        mileageTv.setText("123km");// FIXME: 2017/2/21 test
+//        mileageTv.setText("123km");// FIXME: 2017/2/21 test
         mileageTv.setTextColor(getResources().getColorStateList(R.color.day_view_text_secondary));
         mileageTv.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.day_view_text_secondary));
         LayoutParams layout_542 = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);

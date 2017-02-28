@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
                 reports.add(report);
             }
 
-            DateUtil.addDay(startDate, 1);
+            startDate = DateUtil.addDay(startDate, 1);
         }
 
         return reports;
