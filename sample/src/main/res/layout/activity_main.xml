@@ -20,15 +20,4 @@
     <com.fanhl.linmileagecalendar.MileageDayView
         android:layout_width="50dp"
         android:layout_height="50dp"/>
-
-    <com.fanhl.linmileagecalendar.MonthGridView
-        android:id="@+id/monthGridView"
-        android:background="#dcffef"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
-    <!--<com.fanhl.linmileagecalendar.MonthView-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"/>-->
-
 </LinearLayout>
