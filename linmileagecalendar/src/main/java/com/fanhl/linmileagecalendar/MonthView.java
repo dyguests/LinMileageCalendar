@@ -9,9 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.fanhl.linmileagecalendar.model.MileageDay;
 import com.fanhl.linmileagecalendar.util.DateUtil;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by fanhl on 2017/2/28.
@@ -19,6 +22,12 @@ import java.util.Date;
 public class MonthView extends LinearLayout {
     public static final String TAG = MonthView.class.getSimpleName();
     private Date date;
+    /**
+     * 存当月的里程
+     * <p>
+     * 有序的（并不保证有每天的数据）
+     */
+    private List<MileageDay> data;
 
     public MonthView(Context context) {
         super(context);
@@ -66,6 +75,15 @@ public class MonthView extends LinearLayout {
             child.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1));
 
             child.setDate(firstDayInMonth);
+            if (data != null) {
+                List<MileageDay> weekData = new ArrayList<>();
+                for (MileageDay mileageDay : data) {
+                    if (DateUtil.isInSameWeek(firstDayInMonth, mileageDay.getDate())) {
+                        weekData.add(mileageDay);
+                    }
+                }
+                child.setData(weekData);
+            }
 
             addView(child);
 
@@ -84,6 +102,18 @@ public class MonthView extends LinearLayout {
         }
         this.date = date;
 
+        notifyDataChanged();
+    }
+
+    public List<MileageDay> getData() {
+        return data;
+    }
+
+    public void setData(List<MileageDay> data) {
+        if (this.data == data) {
+            return;
+        }
+        this.data = data;
         notifyDataChanged();
     }
 

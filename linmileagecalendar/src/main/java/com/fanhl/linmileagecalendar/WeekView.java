@@ -8,9 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.fanhl.linmileagecalendar.model.MileageDay;
 import com.fanhl.linmileagecalendar.util.DateUtil;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * 一周的视图
@@ -20,6 +22,12 @@ import java.util.Date;
 public class WeekView extends LinearLayout {
     public static final int DAY_IN_WEEK = 7;
     private Date date;
+    /**
+     * 存当月的里程
+     * <p>
+     * 有序的（并不保证有每天的数据）
+     */
+    private List<MileageDay> data;
 
     public WeekView(Context context) {
         super(context);
@@ -53,17 +61,17 @@ public class WeekView extends LinearLayout {
     private void resetChildViews(Context context) {
         removeAllViews();
 
-        Date firstDayInWeek = DateUtil.getFirstDayInWeek(date);
+        Date startDate = DateUtil.getFirstDayInWeek(date);
         //Date lastDayInWeek = DateUtil.getLastDayInWeek(date);
 
         for (int i = 0; i < DAY_IN_WEEK; i++) {
-            if (DateUtil.isInSameWeek(date, firstDayInWeek)) {
-                addView(context, firstDayInWeek);
+            if (DateUtil.isInSameWeek(date, startDate)) {
+                addView(context, startDate);
             } else {
                 addView(context, null);
             }
 
-            firstDayInWeek = DateUtil.addDay(firstDayInWeek, 1);
+            startDate = DateUtil.addDay(startDate, 1);
         }
     }
 
@@ -73,6 +81,16 @@ public class WeekView extends LinearLayout {
             view.setLayoutParams(new LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1));
 
             view.setDate(date);
+
+            if (data != null) {
+                for (MileageDay mileageDay : data) {
+                    if (DateUtil.isSameDay(date, mileageDay.getDate())) {
+                        view.setMileage(mileageDay.getMileage());
+                        break;
+                    }
+                }
+            }
+
             addView(view);
         } else {
             View view = new View(context);
@@ -91,6 +109,18 @@ public class WeekView extends LinearLayout {
             return;
         }
         this.date = date;
+        notifyDataChanged();
+    }
+
+    public List<MileageDay> getData() {
+        return data;
+    }
+
+    public void setData(List<MileageDay> data) {
+        if (this.data == data) {
+            return;
+        }
+        this.data = data;
         notifyDataChanged();
     }
 

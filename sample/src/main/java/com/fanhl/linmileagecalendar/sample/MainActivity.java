@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 
 import com.fanhl.linmileagecalendar.MonthView;
+import com.fanhl.linmileagecalendar.model.MileageDay;
 import com.fanhl.linmileagecalendar.util.DateUtil;
 
 import java.util.ArrayList;
@@ -54,7 +55,35 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void bindData(List<Report> list) {
+        List<MileageDay> data = new ArrayList<>();
 
+//        Date date = monthView.getDate();
+//        Date startDate = DateUtil.getFirstDayInMonth(date);
+//        int numberOfDayInMonth = DateUtil.getNumberOfDayInMonth(startDate);
+//        for (int i = 0; i < numberOfDayInMonth; i++) {
+//            Report report = CollectionUtil.binarySearch(list, startDate, new CollectionUtil.BinarySearchComparator<Report, Date>() {
+//                @Override public int compare(Report report, Date date) {
+//                    long keyTime = date.getTime();
+//                    long reportTime = report.getDate().getTime();
+//                    long l = keyTime / 60 / 60 / 1000 - reportTime / 60 / 60 / 1000;
+//                    if (l < 0) {
+//                        return -1;
+//                    } else if (l > 0) {
+//                        return 1;
+//                    } else {
+//                        return 0;
+//                    }
+//                }
+//            });
+//
+//            DateUtil.addDay(startDate, 1);
+//        }
+
+        for (Report report : list) {
+            data.add(new MileageDay(report.getDate(), (float) report.getMileage()));
+        }
+
+        monthView.setData(data);
     }
 
     @NonNull private ArrayList<Report> getReports() {

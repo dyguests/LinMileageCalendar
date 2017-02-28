@@ -9,6 +9,14 @@ public class MileageDay {
     private Date date;
     private Float mileage;
 
+    public MileageDay() {
+    }
+
+    public MileageDay(Date date, Float mileage) {
+        this.date = date;
+        this.mileage = mileage;
+    }
+
     public Date getDate() {
         return date;
     }

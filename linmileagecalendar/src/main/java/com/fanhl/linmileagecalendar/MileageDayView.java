@@ -124,9 +124,9 @@ public class MileageDayView extends RelativeLayout {
         if (mileage == null || mileage == 0) {
             mileageStr = "";
         } else if (mileage < 100) {
-            mileageStr = new DecimalFormat("#.#").format(mileage);
+            mileageStr = new DecimalFormat("#.#").format(mileage) + "km";
         } else {
-            mileageStr = new DecimalFormat("#").format(mileage);
+            mileageStr = new DecimalFormat("#").format(mileage) + "km";
         }
 
         mileageTv.setText(mileageStr);
