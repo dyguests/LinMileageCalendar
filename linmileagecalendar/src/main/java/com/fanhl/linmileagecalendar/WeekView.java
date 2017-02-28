@@ -29,6 +29,8 @@ public class WeekView extends LinearLayout {
      */
     private List<MileageDay> data;
 
+    private OnDayClickListener onDayClickListener;
+
     public WeekView(Context context) {
         super(context);
         init(context, null, 0, 0);
@@ -75,7 +77,7 @@ public class WeekView extends LinearLayout {
         }
     }
 
-    private void addView(Context context, Date date) {
+    private void addView(Context context, final Date date) {
         if (date != null) {
             MileageDayView view = new MileageDayView(context);
             view.setLayoutParams(new LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1));
@@ -90,6 +92,13 @@ public class WeekView extends LinearLayout {
                     }
                 }
             }
+            view.setOnClickListener(new OnClickListener() {
+                @Override public void onClick(View v) {
+                    if (onDayClickListener != null) {
+                        onDayClickListener.onDayClick(date);
+                    }
+                }
+            });
 
             addView(view);
         } else {
@@ -124,7 +133,22 @@ public class WeekView extends LinearLayout {
         notifyDataChanged();
     }
 
+    public OnDayClickListener getOnDayClickListener() {
+        return onDayClickListener;
+    }
+
+    public void setOnDayClickListener(OnDayClickListener onDayClickListener) {
+        this.onDayClickListener = onDayClickListener;
+    }
+
     private void notifyDataChanged() {
         resetChildViews(getContext());
+    }
+
+    /**
+     * 当当月某一天被点击时的处理
+     */
+    public interface OnDayClickListener {
+        void onDayClick(Date date);
     }
 }

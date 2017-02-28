@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import com.fanhl.linmileagecalendar.MonthView;
 import com.fanhl.linmileagecalendar.model.MileageDay;
@@ -35,6 +36,12 @@ public class MainActivity extends AppCompatActivity {
     private void initData() {
         monthView.setDate(DateUtil.getFirstDayInMonth(new Date()));
         random = new Random();
+
+        monthView.setOnDayClickListener(new MonthView.OnDayClickListener() {
+            @Override public void onDayClick(Date date) {
+                Toast.makeText(MainActivity.this, date.toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void refreshData() {

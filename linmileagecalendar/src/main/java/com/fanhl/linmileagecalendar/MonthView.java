@@ -29,6 +29,8 @@ public class MonthView extends LinearLayout {
      */
     private List<MileageDay> data;
 
+    private OnDayClickListener onDayClickListener;
+
     public MonthView(Context context) {
         super(context);
         init(context, null, 0, 0);
@@ -84,6 +86,13 @@ public class MonthView extends LinearLayout {
                 }
                 child.setData(weekData);
             }
+            child.setOnDayClickListener(new WeekView.OnDayClickListener() {
+                @Override public void onDayClick(Date date) {
+                    if (onDayClickListener != null) {
+                        onDayClickListener.onDayClick(date);
+                    }
+                }
+            });
 
             addView(child);
 
@@ -117,7 +126,22 @@ public class MonthView extends LinearLayout {
         notifyDataChanged();
     }
 
+    public OnDayClickListener getOnDayClickListener() {
+        return onDayClickListener;
+    }
+
+    public void setOnDayClickListener(OnDayClickListener onDayClickListener) {
+        this.onDayClickListener = onDayClickListener;
+    }
+
     private void notifyDataChanged() {
         resetChildViews(getContext());
+    }
+
+    /**
+     * 当当月某一天被点击时的处理
+     */
+    public interface OnDayClickListener {
+        void onDayClick(Date date);
     }
 }
