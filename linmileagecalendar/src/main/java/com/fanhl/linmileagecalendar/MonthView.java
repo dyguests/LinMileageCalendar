@@ -42,9 +42,15 @@ public class MonthView extends LinearLayout {
     }
 
     private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        setOrientation(VERTICAL);
+
         date = DateUtil.getFirstDayInMonth(new Date());
 
-        setOrientation(VERTICAL);
+        resetChildViews(context);
+    }
+
+    private void resetChildViews(Context context) {
+        removeAllViews();
 
         //header
         View monthHeader = LayoutInflater.from(context).inflate(R.layout.view_month_header, this, false);
@@ -68,4 +74,20 @@ public class MonthView extends LinearLayout {
         }
     }
 
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        if (this.date == date) {
+            return;
+        }
+        this.date = date;
+
+        notifyDataChanged();
+    }
+
+    private void notifyDataChanged() {
+        resetChildViews(getContext());
+    }
 }

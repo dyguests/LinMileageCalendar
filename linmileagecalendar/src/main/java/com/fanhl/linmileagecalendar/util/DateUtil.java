@@ -133,7 +133,7 @@ public class DateUtil {
      * @param date2
      * @return
      */
-    public static boolean isSameWeek(Date date1, Date date2) {
+    public static boolean isInSameWeek(Date date1, Date date2) {
         if (date1 == null || date2 == null) {
             return false;
         }

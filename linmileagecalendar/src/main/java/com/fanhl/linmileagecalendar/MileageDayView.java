@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.fanhl.linmileagecalendar.util.DateUtil;
 
+import java.text.DecimalFormat;
 import java.util.Date;
 
 /**
@@ -20,6 +21,7 @@ import java.util.Date;
  */
 public class MileageDayView extends RelativeLayout {
     private Date date;
+    private Float mileage;
 
     private TextView dayTv;
     private TextView mileageTv;
@@ -106,10 +108,27 @@ public class MileageDayView extends RelativeLayout {
         }
         this.date = date;
         dayTv.setText(DateUtil.date2str(date, DateUtil.FORMAT_d));
-//        if (isInEditMode()) {
-//            if (date.getDate() % 4 == 0) {
-//                setBackgroundColor(Color.RED);
-//            }
-//        }
+    }
+
+    public Float getMileage() {
+        return mileage;
+    }
+
+    public void setMileage(Float mileage) {
+        if (this.mileage == mileage) {
+            return;
+        }
+        this.mileage = mileage;
+
+        String mileageStr;
+        if (mileage == null || mileage == 0) {
+            mileageStr = "";
+        } else if (mileage < 100) {
+            mileageStr = new DecimalFormat("#.#").format(mileage);
+        } else {
+            mileageStr = new DecimalFormat("#").format(mileage);
+        }
+
+        mileageTv.setText(mileageStr);
     }
 }

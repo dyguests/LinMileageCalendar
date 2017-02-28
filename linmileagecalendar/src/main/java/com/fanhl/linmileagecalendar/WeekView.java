@@ -57,7 +57,7 @@ public class WeekView extends LinearLayout {
         //Date lastDayInWeek = DateUtil.getLastDayInWeek(date);
 
         for (int i = 0; i < DAY_IN_WEEK; i++) {
-            if (DateUtil.isSameWeek(date, firstDayInWeek)) {
+            if (DateUtil.isInSameWeek(date, firstDayInWeek)) {
                 addView(context, firstDayInWeek);
             } else {
                 addView(context, null);
