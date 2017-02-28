@@ -50,6 +50,12 @@ public class MainActivity extends AppCompatActivity {
             private List<Report> list;
 
             @Override protected Void doInBackground(Void... params) {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
                 list = getReports();
 
                 return null;
