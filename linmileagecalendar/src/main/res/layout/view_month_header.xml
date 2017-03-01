@@ -9,65 +9,36 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp">
+        android:paddingBottom="@dimen/month_view_header_padding"
+        android:paddingTop="@dimen/month_view_header_padding">
 
         <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/sunday"
-            android:textColor="@color/day_view_text_color_secondary"/>
+            style="@style/MonthView.Header.Text.Secondary"
+            android:text="@string/sunday"/>
 
         <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/monday"
-            android:textColor="@android:color/black"/>
+            style="@style/MonthView.Header.Text"
+            android:text="@string/monday"/>
 
         <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/tuesday"
-            android:textColor="@android:color/black"/>
+            style="@style/MonthView.Header.Text"
+            android:text="@string/tuesday"/>
 
         <TextView
-            android:id="@+id/textView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/wednesday"
-            android:textColor="@android:color/black"/>
+            style="@style/MonthView.Header.Text"
+            android:text="@string/wednesday"/>
 
         <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/thursday"
-            android:textColor="@android:color/black"/>
+            style="@style/MonthView.Header.Text"
+            android:text="@string/thursday"/>
 
         <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/friday"
-            android:textColor="@android:color/black"/>
+            style="@style/MonthView.Header.Text"
+            android:text="@string/friday"/>
 
         <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/saturday"
-            android:textColor="@color/day_view_text_color_secondary"/>
+            style="@style/MonthView.Header.Text.Secondary"
+            android:text="@string/saturday"/>
     </LinearLayout>
 
     <View

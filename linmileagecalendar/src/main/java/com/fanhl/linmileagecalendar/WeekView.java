@@ -79,7 +79,7 @@ public class WeekView extends LinearLayout {
 
     private void addView(Context context, final Date date) {
         if (date != null) {
-            MileageDayView view = new MileageDayView(context);
+            final MileageDayView view = new MileageDayView(context);
             view.setLayoutParams(new LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1));
 
             view.setDate(date);
@@ -95,7 +95,7 @@ public class WeekView extends LinearLayout {
             view.setOnClickListener(new OnClickListener() {
                 @Override public void onClick(View v) {
                     if (onDayClickListener != null) {
-                        onDayClickListener.onDayClick(date);
+                        onDayClickListener.onDayClick(view);
                     }
                 }
             });
@@ -149,6 +149,6 @@ public class WeekView extends LinearLayout {
      * 当当月某一天被点击时的处理
      */
     public interface OnDayClickListener {
-        void onDayClick(Date date);
+        void onDayClick(MileageDayView dayView);
     }
 }

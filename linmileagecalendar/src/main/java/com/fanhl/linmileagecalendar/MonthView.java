@@ -89,9 +89,9 @@ public class MonthView extends LinearLayout {
                 child.setData(weekData);
             }
             child.setOnDayClickListener(new WeekView.OnDayClickListener() {
-                @Override public void onDayClick(Date date) {
+                @Override public void onDayClick(MileageDayView dayView) {
                     if (onDayClickListener != null) {
-                        onDayClickListener.onDayClick(date);
+                        onDayClickListener.onDayClick(dayView);
                     }
                 }
             });
@@ -144,6 +144,6 @@ public class MonthView extends LinearLayout {
      * 当当月某一天被点击时的处理
      */
     public interface OnDayClickListener {
-        void onDayClick(Date date);
+        void onDayClick(MileageDayView dayView);
     }
 }
