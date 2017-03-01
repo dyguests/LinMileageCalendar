@@ -63,6 +63,8 @@ public class MonthView extends LinearLayout {
     private void resetChildViews(Context context) {
         removeAllViews();
 
+//        setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+
         //header
         View monthHeader = LayoutInflater.from(context).inflate(R.layout.view_month_header, this, false);
         monthHeader.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
