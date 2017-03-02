@@ -10,8 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 
-import com.fanhl.linmileagecalendar.constant.Constant;
-
 /**
  * @author Jack Tony
  * @brief recyle view 滚动监听器
@@ -101,7 +99,7 @@ public class OnRcvScrollListener extends RecyclerView.OnScrollListener implement
         int totalItemCount = layoutManager.getItemCount();
 
         Log.d(TAG, "currentScrollState == RecyclerView.SCROLL_STATE_IDLE:" + (currentScrollState == RecyclerView.SCROLL_STATE_IDLE));
-        Log.d(TAG, "lastVisibleItemPosition:" + lastVisibleItemPosition);
+        Log.d(TAG, "visibleItemCount:" + visibleItemCount + " totalItemCount:" + totalItemCount + " lastVisibleItemPosition:" + lastVisibleItemPosition);
         //add fanhl 2017/3/2 添加到顶部时的处理
         if (currentScrollState == RecyclerView.SCROLL_STATE_IDLE && (lastVisibleItemPosition) <= 1) {
             Log.d(TAG, "is loading more at first");
@@ -114,8 +112,8 @@ public class OnRcvScrollListener extends RecyclerView.OnScrollListener implement
 //            //Log.d(TAG, "is loading more");
 //            onScrollBottom();
 //        }
-        if ((visibleItemCount >= Constant.PAGE_SIZE_DEFAULT && currentScrollState == RecyclerView.SCROLL_STATE_IDLE &&
-                (lastVisibleItemPosition) >= totalItemCount - 1)) {
+        if (/*visibleItemCount >= Constant.PAGE_SIZE_DEFAULT &&*/ currentScrollState == RecyclerView.SCROLL_STATE_IDLE &&
+                (lastVisibleItemPosition) >= totalItemCount - 1) {
             Log.d(TAG, "is loading more");
             onScrollBottom();
         }

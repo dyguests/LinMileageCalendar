@@ -229,11 +229,7 @@ public class DateUtil {
         cal1.setTime(date1);
         cal2.setTime(date2);
 
-        if (cal1.get(Calendar.YEAR) != cal2.get(Calendar.YEAR)) {
-            return (cal1.get(Calendar.YEAR) - cal2.get(Calendar.YEAR)) * 12;
-        } else {
-            return cal1.get(Calendar.MONTH) - cal2.get(Calendar.MONTH);
-        }
+        return (cal1.get(Calendar.YEAR) - cal2.get(Calendar.YEAR)) * 12 + cal1.get(Calendar.MONTH) - cal2.get(Calendar.MONTH);
     }
 
 
