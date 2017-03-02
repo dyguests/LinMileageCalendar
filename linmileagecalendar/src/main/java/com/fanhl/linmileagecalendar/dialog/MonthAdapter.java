@@ -2,36 +2,35 @@ package com.fanhl.linmileagecalendar.dialog;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.fanhl.linmileagecalendar.R;
+import com.fanhl.linmileagecalendar.common.ListAdapter;
+import com.fanhl.linmileagecalendar.model.MonthData;
 
 /**
  * 对话框每一月份的adapter
  * <p>
  * Created by fanhl on 2017/3/1.
  */
-public class MonthAdapter extends RecyclerView.Adapter<MonthAdapter.ViewHolder> {
+public class MonthAdapter extends ListAdapter<MonthAdapter.ViewHolder, MonthData> {
 
-    private final Context context;
-
-    public MonthAdapter(Context context) {
-        this.context = context;
+    public MonthAdapter(Context context, RecyclerView recyclerView) {
+        super(context, recyclerView);
     }
 
     @Override public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return null;
+        return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_month, parent, false));
     }
 
     @Override public void onBindViewHolder(ViewHolder holder, int position) {
+        super.onBindViewHolder(holder, position);
 
     }
 
-    @Override public int getItemCount() {
-        return 0;
-    }
-
-
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends ListAdapter.ViewHolder {
         public ViewHolder(View itemView) {
             super(itemView);
         }

@@ -29,12 +29,17 @@ public class MileageCalendarDialogFragment extends DialogFragment {
 
     private MonthAdapter adapter;
 
+    private Date selectedDate;
+
     public static MileageCalendarDialogFragment newInstance(@NonNull Date selectedDate) {
 
         Bundle args = new Bundle();
 
         MileageCalendarDialogFragment fragment = new MileageCalendarDialogFragment();
         fragment.setArguments(args);
+
+        fragment.selectedDate = selectedDate;
+
         return fragment;
     }
 
@@ -61,7 +66,7 @@ public class MileageCalendarDialogFragment extends DialogFragment {
     }
 
     private void initData() {
-        adapter = new MonthAdapter(getActivity());
+        adapter = new MonthAdapter(getActivity(), recyclerView);
         recyclerView.setAdapter(adapter);
     }
 }

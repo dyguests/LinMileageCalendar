@@ -4,4 +4,5 @@
     <dimen name="day_view_text">16sp</dimen>
     <dimen name="day_view_text_secondary">11sp</dimen>
     <dimen name="month_view_header_padding">5dp</dimen>
+    <dimen name="item_month_month_height">220dp</dimen>
 </resources>
