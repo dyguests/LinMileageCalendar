@@ -14,6 +14,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.fanhl.linmileagecalendar.R;
+import com.fanhl.linmileagecalendar.common.OnRcvScrollListener;
+import com.fanhl.linmileagecalendar.constant.Constant;
 import com.fanhl.linmileagecalendar.model.MonthData;
 import com.fanhl.linmileagecalendar.util.DateUtil;
 
@@ -29,7 +31,7 @@ import java.util.List;
 public class MileageCalendarDialogFragment extends DialogFragment {
     public static final String TAG = MileageCalendarDialogFragment.class.getSimpleName();
     /** 每次加载数据时要刷新的条数 */
-    public static final int DEFAULT_LOAD_COUNT = 5;
+    public static final int DEFAULT_LOAD_COUNT = Constant.PAGE_SIZE_DEFAULT;
 
     private android.widget.TextView dateTv;
     private RecyclerView recyclerView;
@@ -78,6 +80,30 @@ public class MileageCalendarDialogFragment extends DialogFragment {
         adapter = new MonthAdapter(getActivity(), recyclerView);
         recyclerView.setAdapter(adapter);
         layoutManager = ((LinearLayoutManager) recyclerView.getLayoutManager());
+        recyclerView.addOnScrollListener(new OnRcvScrollListener() {
+            @Override public void onScrollTop() {
+                List<MonthData> list = adapter.getList();
+                if (list != null && !list.isEmpty()) {
+                    Date month = list.get(0).getMonth();
+                    Log.d(TAG, "onScrollTop month:" + month);
+                    loadData(month, -1);
+                }
+            }
+
+            @Override
+            public void onScrollBottom() {
+                List<MonthData> list = adapter.getList();
+                if (list != null && !list.isEmpty()) {
+                    Date month = list.get(list.size() - 1).getMonth();
+                    Log.d(TAG, "onScrollBottom month:" + month);
+                    loadData(month, 1);
+                }
+            }
+        });
+
+        if (selectedDate == null) {
+            selectedDate = new Date();
+        }
     }
 
     private void refreshData() {

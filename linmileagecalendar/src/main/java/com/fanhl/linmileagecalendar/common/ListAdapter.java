@@ -88,6 +88,11 @@ public abstract class ListAdapter<CVH extends ListAdapter.ViewHolder, ITEM> exte
 
     //----------------数据增删 end-------------------
 
+
+    public List<ITEM> getList() {
+        return list;
+    }
+
     public class ViewHolder extends ClickableAdapter.ClickableViewHolder {
         ITEM data;
 
