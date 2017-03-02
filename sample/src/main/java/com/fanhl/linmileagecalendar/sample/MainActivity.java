@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.fanhl.linmileagecalendar.MileageDayView;
 import com.fanhl.linmileagecalendar.MonthView;
 import com.fanhl.linmileagecalendar.dialog.MileageCalendarDialogFragment;
+import com.fanhl.linmileagecalendar.dialog.MonthAdapter;
 import com.fanhl.linmileagecalendar.model.MileageDay;
 import com.fanhl.linmileagecalendar.util.DateUtil;
 
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
     private MonthView monthView;
     private Random random;
+    private Date selectedDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,13 +36,21 @@ public class MainActivity extends AppCompatActivity {
 
     private void assignViews() {
         this.monthView = (MonthView) findViewById(R.id.monthView);
-        findViewById(R.id.mileageBtn).setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View v) {
-                MileageCalendarDialogFragment.newInstance(new Date())
+
+        selectedDate = new Date();
+        findViewById(R.id.mileageBtn)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override public void onClick(View v) {
+                        MileageCalendarDialogFragment.newInstance(selectedDate, new MonthAdapter.OnDayClickListener() {
+                            @Override public void onDayClick(Date date) {
+                                selectedDate = date;
+                                Toast.makeText(MainActivity.this, date.toString(), Toast.LENGTH_SHORT).show();
+                            }
+                        })
 //                MileageCalendarDialogFragment.newInstance(DateUtil.addMonth(new Date(),-5))
-                        .show(getSupportFragmentManager(), MileageCalendarDialogFragment.TAG);
-            }
-        });
+                                .show(getSupportFragmentManager(), MileageCalendarDialogFragment.TAG);
+                    }
+                });
     }
 
     private void initData() {

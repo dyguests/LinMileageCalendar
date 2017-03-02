@@ -40,8 +40,9 @@ public class MileageCalendarDialogFragment extends DialogFragment {
     private MonthAdapter adapter;
 
     private Date selectedDate;
+    private MonthAdapter.OnDayClickListener onDayClickListener;
 
-    public static MileageCalendarDialogFragment newInstance(@NonNull Date selectedDate) {
+    public static MileageCalendarDialogFragment newInstance(@NonNull Date selectedDate, @NonNull MonthAdapter.OnDayClickListener onDayClickListener) {
 
         Bundle args = new Bundle();
 
@@ -49,6 +50,7 @@ public class MileageCalendarDialogFragment extends DialogFragment {
         fragment.setArguments(args);
 
         fragment.selectedDate = selectedDate;
+        fragment.onDayClickListener = onDayClickListener;
 
         return fragment;
     }
@@ -78,6 +80,17 @@ public class MileageCalendarDialogFragment extends DialogFragment {
 
     private void initData() {
         adapter = new MonthAdapter(getActivity(), recyclerView);
+        adapter.setOnDayClickListener(new MonthAdapter.OnDayClickListener() {
+            @Override public void onDayClick(Date date) {
+                if (DateUtil.isAfterByDay(date, new Date())) {
+                    Log.d(TAG, "不能选择当天之后的日期");
+                    return;
+                }
+                onDayClickListener.onDayClick(date);
+                dismiss();
+            }
+        });
+
         recyclerView.setAdapter(adapter);
         layoutManager = ((LinearLayoutManager) recyclerView.getLayoutManager());
         recyclerView.addOnScrollListener(new OnRcvScrollListener() {

@@ -2,6 +2,7 @@ package com.fanhl.linmileagecalendar.util;
 
 import android.support.annotation.NonNull;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -30,6 +31,24 @@ public class DateUtil {
     public static final String FORMAT_CN_M = "MM月";
     public static final String FORMAT_M = "M";
     public static final String FORMAT_d = "d";
+
+    /**
+     * templete: FORMAT_STR -> Date
+     *
+     * @param str
+     * @param format
+     * @return
+     */
+    public static Date str2date(String str, String format) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format);
+        Date date = null;
+        try {
+            date = simpleDateFormat.parse(str);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return date;
+    }
 
     /**
      * templete: Date -> FORMAT_STR
@@ -215,5 +234,58 @@ public class DateUtil {
         } else {
             return cal1.get(Calendar.MONTH) - cal2.get(Calendar.MONTH);
         }
+    }
+
+
+    /**
+     * fromDate是否大于toDate（最小单位为天）
+     *
+     * @param fromDate
+     * @param toDate
+     * @return
+     */
+    public static boolean isAfterByDay(Date fromDate, Date toDate) {
+        if (fromDate == null)
+            return false;
+        if (toDate == null)
+            return true;
+        Date fromDate2 = short2date(date2short(fromDate));
+        Date toDate2 = short2date(date2short(toDate));
+
+        return fromDate2.getTime() > toDate2.getTime();
+
+        //        if (fromDate.getYear() > toDate.getYear()) {
+        //            return true;
+        //        } else if (fromDate.getYear() < toDate.getYear()) {
+        //            return false;
+        //        }else if (fromDate.getMonth() > toDate.getMonth()) {
+        //            return true;
+        //        } else if (fromDate.getMonth() < toDate.getMonth()) {
+        //            return false;
+        //        }if (fromDate.getDay() > toDate.getDay()) {
+        //            return true;
+        //        } else/* if (fromDate.getDay() < toDate.getDay())*/ {
+        //            return false;
+        //        }
+    }
+
+    /**
+     * templete: "yyyy-MM-dd" -> Date
+     *
+     * @param str
+     * @return
+     */
+    public static Date short2date(String str) {
+        return str2date(str, FORMAT_SHORT);
+    }
+
+    /**
+     * templete: Date -> "yyyy-MM-dd"
+     *
+     * @param date
+     * @return
+     */
+    public static String date2short(Date date) {
+        return date2str(date, FORMAT_SHORT);
     }
 }

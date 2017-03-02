@@ -6,7 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.fanhl.linmileagecalendar.MileageDayView;
 import com.fanhl.linmileagecalendar.MonthView;
 import com.fanhl.linmileagecalendar.R;
 import com.fanhl.linmileagecalendar.common.ListAdapter;
@@ -15,6 +17,7 @@ import com.fanhl.linmileagecalendar.model.MonthData;
 import com.fanhl.linmileagecalendar.util.DateUtil;
 
 import java.text.DecimalFormat;
+import java.util.Date;
 
 /**
  * 对话框每一月份的adapter
@@ -22,6 +25,7 @@ import java.text.DecimalFormat;
  * Created by fanhl on 2017/3/1.
  */
 public class MonthAdapter extends ListAdapter<MonthAdapter.ViewHolder, MonthData> {
+    OnDayClickListener onDayClickListener;
 
     public MonthAdapter(Context context, RecyclerView recyclerView) {
         super(context, recyclerView);
@@ -45,7 +49,13 @@ public class MonthAdapter extends ListAdapter<MonthAdapter.ViewHolder, MonthData
             monthTotalTv = ((TextView) itemView.findViewById(R.id.monthTotalTv));
             monthView = ((MonthView) itemView.findViewById(R.id.monthView));
 
-//            monthView.setMonthHeaderShowed(false);
+            monthView.setOnDayClickListener(new MonthView.OnDayClickListener() {
+                @Override public void onDayClick(MileageDayView dayView) {
+                    if (onDayClickListener != null) {
+                        onDayClickListener.onDayClick(dayView.getDate());
+                    }
+                 }
+            });
         }
 
         @Override public void bind(Object data) {
@@ -72,5 +82,17 @@ public class MonthAdapter extends ListAdapter<MonthAdapter.ViewHolder, MonthData
             monthView.setDate(monthData.getMonth());
             monthView.setData(monthData.getMileageDays());
         }
+    }
+
+    public OnDayClickListener getOnDayClickListener() {
+        return onDayClickListener;
+    }
+
+    public void setOnDayClickListener(OnDayClickListener onDayClickListener) {
+        this.onDayClickListener = onDayClickListener;
+    }
+
+    public interface OnDayClickListener {
+        void onDayClick(Date date);
     }
 }
