@@ -1,5 +1,7 @@
 package com.fanhl.linmileagecalendar.util;
 
+import android.support.annotation.NonNull;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -78,6 +80,13 @@ public class DateUtil {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         calendar.add(Calendar.DAY_OF_MONTH, step);
+        return calendar.getTime();
+    }
+
+    public static Date addMonth(Date date, int step) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.MONTH, step);
         return calendar.getTime();
     }
 
@@ -184,5 +193,26 @@ public class DateUtil {
         int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
 
         return dayOfWeek == Calendar.SATURDAY || dayOfWeek == Calendar.SUNDAY;
+    }
+
+
+    /**
+     * 在月份的基础上比较大小
+     *
+     * @param date1
+     * @param date2
+     * @return
+     */
+    public static long compareMonth(@NonNull Date date1, @NonNull Date date2) {
+        Calendar cal1 = Calendar.getInstance();
+        Calendar cal2 = Calendar.getInstance();
+        cal1.setTime(date1);
+        cal2.setTime(date2);
+
+        if (cal1.get(Calendar.YEAR) != cal2.get(Calendar.YEAR)) {
+            return (cal1.get(Calendar.YEAR) - cal2.get(Calendar.YEAR)) * 12;
+        } else {
+            return cal1.get(Calendar.MONTH) - cal2.get(Calendar.MONTH);
+        }
     }
 }
