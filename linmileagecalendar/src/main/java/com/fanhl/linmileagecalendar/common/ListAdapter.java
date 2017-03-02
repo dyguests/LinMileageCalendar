@@ -76,11 +76,14 @@ public abstract class ListAdapter<CVH extends ListAdapter.ViewHolder, ITEM> exte
     }
 
     @Override public void addFirstItem(ITEM item) {
-        throw new RuntimeException("没空实现 先不写");
+        list.add(0, item);
+        notifyItemInserted(0);
     }
 
     @Override public void addFirstItems(List<ITEM> items) {
-        throw new RuntimeException("没空实现 先不写");
+        int itemCount = items.size();
+        list.addAll(0, items);
+        notifyItemRangeInserted(0, itemCount);
     }
 
     //----------------数据增删 end-------------------
