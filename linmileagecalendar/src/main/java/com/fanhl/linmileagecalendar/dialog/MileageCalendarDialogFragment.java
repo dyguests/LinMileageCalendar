@@ -89,16 +89,48 @@ public class MileageCalendarDialogFragment extends DialogFragment {
      * @param offset   【0:第一次加载数据，-1:向前加载，1:向后加载】
      */
     private void loadData(Date baseDate, int offset) {
+        //不能超过当前月
+        if (DateUtil.compareMonth(baseDate, new Date()) > 0) {
+            baseDate = new Date();
+        }
+
         if (offset == 0) {
             long compareMonth = DateUtil.compareMonth(baseDate, new Date());
             if (compareMonth == 0) {
                 List<MonthData> monthDatas = buildMonthDatas(baseDate, 1 - DEFAULT_LOAD_COUNT, 0);
                 adapter.replaceItems(monthDatas);
-                layoutManager.scrollToPositionWithOffset(adapter.getItemCount() - 1, 0);
+                layoutManager.scrollToPositionWithOffset(DEFAULT_LOAD_COUNT - 1, 0);
+            } else if (compareMonth < 0) {
+                int offsetStart = DEFAULT_LOAD_COUNT / 2 - DEFAULT_LOAD_COUNT + 1;
+                int offsetEnd = DEFAULT_LOAD_COUNT / 2;
+
+                //如果要生成的最后一个月大于当前月，则把最后一个月生成当前月。
+                if (offsetEnd + compareMonth > 0) {
+                    offsetEnd = (int) -compareMonth;
+                }
+
+                List<MonthData> monthDatas = buildMonthDatas(baseDate, offsetStart, offsetEnd);
+                adapter.replaceItems(monthDatas);
+                layoutManager.scrollToPositionWithOffset(-offsetStart, 0);
+            } else {
+                throw new RuntimeException("baseDate不可能超过当前月。");
             }
-            // FIXME: 2017/3/2
+        } else if (offset < 0) {
+            List<MonthData> monthDatas = buildMonthDatas(baseDate, -DEFAULT_LOAD_COUNT, -1);
+            adapter.addFirstItems(monthDatas);
+        } else {
+            long compareMonth = DateUtil.compareMonth(baseDate, new Date());
+            //未超过当前月
+            if (compareMonth < 0) {
+                List<MonthData> monthDatas;
+                if (DEFAULT_LOAD_COUNT + compareMonth >= 0) {
+                    monthDatas = buildMonthDatas(baseDate, 1, DEFAULT_LOAD_COUNT);
+                } else {
+                    monthDatas = buildMonthDatas(baseDate, 1, (int) -compareMonth);
+                }
+                adapter.addItems(monthDatas);
+            }
         }
-        // FIXME: 2017/3/2
     }
 
     private List<MonthData> buildMonthDatas(Date baseDate, int offsetStart, int offsetEnd) {

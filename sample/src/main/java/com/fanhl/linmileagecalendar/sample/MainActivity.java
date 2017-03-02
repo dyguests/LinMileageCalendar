@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.mileageBtn).setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
                 MileageCalendarDialogFragment.newInstance(new Date())
+//                MileageCalendarDialogFragment.newInstance(DateUtil.addMonth(new Date(),-5))
                         .show(getSupportFragmentManager(), MileageCalendarDialogFragment.TAG);
             }
         });

@@ -10,7 +10,11 @@ import android.widget.TextView;
 import com.fanhl.linmileagecalendar.MonthView;
 import com.fanhl.linmileagecalendar.R;
 import com.fanhl.linmileagecalendar.common.ListAdapter;
+import com.fanhl.linmileagecalendar.model.MileageDay;
 import com.fanhl.linmileagecalendar.model.MonthData;
+import com.fanhl.linmileagecalendar.util.DateUtil;
+
+import java.text.DecimalFormat;
 
 /**
  * 对话框每一月份的adapter
@@ -29,11 +33,10 @@ public class MonthAdapter extends ListAdapter<MonthAdapter.ViewHolder, MonthData
 
     @Override public void onBindViewHolder(ViewHolder holder, int position) {
         super.onBindViewHolder(holder, position);
-
+        holder.bind(list.get(position));
     }
 
     public class ViewHolder extends ListAdapter.ViewHolder {
-
         private final TextView monthTotalTv;
         private final MonthView monthView;
 
@@ -43,6 +46,31 @@ public class MonthAdapter extends ListAdapter<MonthAdapter.ViewHolder, MonthData
             monthView = ((MonthView) itemView.findViewById(R.id.monthView));
 
 //            monthView.setMonthHeaderShowed(false);
+        }
+
+        @Override public void bind(Object data) {
+            super.bind(data);
+            MonthData monthData = (MonthData) data;
+
+            String month = DateUtil.date2str(monthData.getMonth(), DateUtil.FORMAT_M);
+
+            String mileage;
+            if (monthData.getMileageDays() != null) {
+                float mileageTotal = 0;
+                for (MileageDay mileageDay : monthData.getMileageDays()) {
+                    if (mileageDay.getMileage() != null) {
+                        mileageTotal += mileageDay.getMileage();
+                    }
+                }
+                mileage = new DecimalFormat("#.#").format(mileageTotal);
+            } else {
+                mileage = "--";
+            }
+
+            monthTotalTv.setText(context.getResources().getString(R.string.item_month_month_total, month, mileage));
+
+            monthView.setDate(monthData.getMonth());
+            monthView.setData(monthData.getMileageDays());
         }
     }
 }

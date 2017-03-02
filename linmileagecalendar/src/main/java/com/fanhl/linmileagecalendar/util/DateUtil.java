@@ -28,6 +28,7 @@ public class DateUtil {
     public static final String FORMAT_Md = "MM-dd";
     public static final String FORMAT_Md2 = "MM/dd";
     public static final String FORMAT_CN_M = "MM月";
+    public static final String FORMAT_M = "M";
     public static final String FORMAT_d = "d";
 
     /**

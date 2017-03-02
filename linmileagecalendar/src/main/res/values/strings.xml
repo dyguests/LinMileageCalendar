@@ -8,4 +8,6 @@
     <string name="thursday">四</string>
     <string name="friday">五</string>
     <string name="button_close">关闭</string>
+    <string name="item_month_month_total_place_holder">-月总计：--km</string>
+    <string name="item_month_month_total">%1$s月总计：%2$skm</string>
 </resources>

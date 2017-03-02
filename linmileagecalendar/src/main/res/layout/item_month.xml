@@ -14,7 +14,7 @@
         android:layout_marginRight="11dp"
         android:paddingBottom="5dp"
         android:paddingTop="5dp"
-        android:text="-月总计：--km"
+        android:text="@string/item_month_month_total_place_holder"
         android:textColor="@android:color/black"
         android:textSize="16sp"
         tools:text="9月总计：123km"/>
