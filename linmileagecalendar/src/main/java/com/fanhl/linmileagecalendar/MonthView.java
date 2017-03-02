@@ -1,9 +1,11 @@
 package com.fanhl.linmileagecalendar;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +23,7 @@ import java.util.List;
  */
 public class MonthView extends LinearLayout {
     public static final String TAG = MonthView.class.getSimpleName();
+    public static final boolean MONTH_HEADER_SHOWED_DEFAULT = true;
     private Date date;
     /**
      * 存当月的里程
@@ -31,7 +34,7 @@ public class MonthView extends LinearLayout {
 
     private OnDayClickListener onDayClickListener;
     /** 是否显示标头（就是 日一二...六） */
-    private boolean monthHeaderShowed = true;
+    private boolean monthHeaderShowed = MONTH_HEADER_SHOWED_DEFAULT;
 
     public MonthView(Context context) {
         super(context);
@@ -55,6 +58,17 @@ public class MonthView extends LinearLayout {
     }
 
     private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        if (attrs != null) {
+            TypedArray typedArray = context.getTheme().obtainStyledAttributes(attrs, R.styleable.MonthView, defStyleAttr, defStyleRes);
+            try {
+                monthHeaderShowed = typedArray.getBoolean(R.styleable.MonthView_mc_month_header_showed, MONTH_HEADER_SHOWED_DEFAULT);
+            } catch (Exception e) {
+                Log.e(TAG, "get typedArray value fail", e);
+            } finally {
+                typedArray.recycle();
+            }
+        }
+
         setOrientation(VERTICAL);
 
         date = DateUtil.getFirstDayInMonth(new Date());

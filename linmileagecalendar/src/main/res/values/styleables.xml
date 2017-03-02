@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="MonthView">
+        <attr name="mc_month_header_showed" format="boolean"/>
+        <!--<attr name="chart_yAxisLabelPadding" format="dimension"/>-->
+
+        <!--<attr name="chart_axisLabelColor" format="color"/>-->
+        <!--<attr name="chart_axisLabelTextSize" format="dimension"/>-->
+
+        <!--<attr name="chart_barColor" format="color"/>-->
+        <!--<attr name="chart_barEmptyColor" format="color"/>-->
+        <!--<attr name="chart_barWidth" format="dimension"/>-->
+        <!--<attr name="chart_barRound" format="dimension"/>-->
+        <!--&lt;!&ndash;为空值时，显示这个高度&ndash;&gt;-->
+        <!--<attr name="chart_barMinHeight" format="dimension"/>-->
+        <!--<attr name="chart_barStartOffset" format="dimension"/>-->
+
+        <!--<attr name="chart_contourLineColor" format="color"/>-->
+        <!--<attr name="chart_contourLineWidth" format="dimension"/>-->
+    </declare-styleable>
+</resources>

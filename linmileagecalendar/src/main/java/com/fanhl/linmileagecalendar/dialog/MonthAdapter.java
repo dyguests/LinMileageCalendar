@@ -42,7 +42,7 @@ public class MonthAdapter extends ListAdapter<MonthAdapter.ViewHolder, MonthData
             monthTotalTv = ((TextView) itemView.findViewById(R.id.monthTotalTv));
             monthView = ((MonthView) itemView.findViewById(R.id.monthView));
 
-            monthView.setMonthHeaderShowed(false);
+//            monthView.setMonthHeaderShowed(false);
         }
     }
 }
