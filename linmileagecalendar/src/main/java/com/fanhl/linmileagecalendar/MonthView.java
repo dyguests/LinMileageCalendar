@@ -30,6 +30,8 @@ public class MonthView extends LinearLayout {
     private List<MileageDay> data;
 
     private OnDayClickListener onDayClickListener;
+    /** 是否显示标头（就是 日一二...六） */
+    private boolean monthHeaderShowed = true;
 
     public MonthView(Context context) {
         super(context);
@@ -66,9 +68,11 @@ public class MonthView extends LinearLayout {
 //        setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
         //header
-        View monthHeader = LayoutInflater.from(context).inflate(R.layout.view_month_header, this, false);
-        monthHeader.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        addView(monthHeader);
+        if (monthHeaderShowed) {
+            View monthHeader = LayoutInflater.from(context).inflate(R.layout.view_month_header, this, false);
+            monthHeader.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            addView(monthHeader);
+        }
 
         //weeks
         Date firstDayInMonth = DateUtil.getFirstDayInMonth(date);
@@ -134,6 +138,18 @@ public class MonthView extends LinearLayout {
 
     public void setOnDayClickListener(OnDayClickListener onDayClickListener) {
         this.onDayClickListener = onDayClickListener;
+    }
+
+    public boolean isMonthHeaderShowed() {
+        return monthHeaderShowed;
+    }
+
+    public void setMonthHeaderShowed(boolean monthHeaderShowed) {
+        if (this.monthHeaderShowed == monthHeaderShowed) {
+            return;
+        }
+        this.monthHeaderShowed = monthHeaderShowed;
+        notifyDataChanged();
     }
 
     private void notifyDataChanged() {

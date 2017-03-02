@@ -4,10 +4,12 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.Toast;
 
 import com.fanhl.linmileagecalendar.MileageDayView;
 import com.fanhl.linmileagecalendar.MonthView;
+import com.fanhl.linmileagecalendar.dialog.MileageCalendarDialogFragment;
 import com.fanhl.linmileagecalendar.model.MileageDay;
 import com.fanhl.linmileagecalendar.util.DateUtil;
 
@@ -32,6 +34,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void assignViews() {
         this.monthView = (MonthView) findViewById(R.id.monthView);
+        findViewById(R.id.mileageBtn).setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) {
+                MileageCalendarDialogFragment.newInstance(new Date())
+                        .show(getSupportFragmentManager(), MileageCalendarDialogFragment.TAG);
+            }
+        });
     }
 
     private void initData() {

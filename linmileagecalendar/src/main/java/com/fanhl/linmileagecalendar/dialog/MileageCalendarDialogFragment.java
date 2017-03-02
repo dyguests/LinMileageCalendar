@@ -6,9 +6,11 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.TextView;
 
 import com.fanhl.linmileagecalendar.R;
 
@@ -21,6 +23,11 @@ import java.util.Date;
  */
 public class MileageCalendarDialogFragment extends DialogFragment {
     public static final String TAG = MileageCalendarDialogFragment.class.getSimpleName();
+
+    private android.widget.TextView dateTv;
+    private RecyclerView recyclerView;
+
+    private MonthAdapter adapter;
 
     public static MileageCalendarDialogFragment newInstance(@NonNull Date selectedDate) {
 
@@ -49,10 +56,12 @@ public class MileageCalendarDialogFragment extends DialogFragment {
     }
 
     private void assignViews(View view) {
-
+        this.dateTv = (TextView) view.findViewById(R.id.dateTv);
+        this.recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
     }
 
     private void initData() {
-
+        adapter = new MonthAdapter(getActivity());
+        recyclerView.setAdapter(adapter);
     }
 }
