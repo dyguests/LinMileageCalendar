@@ -117,6 +117,14 @@ public class MileageCalendarDialogFragment extends DialogFragment {
                 }
             }
         });
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                int firstVisiblePosition = layoutManager.findFirstVisibleItemPosition();
+                MonthData monthData = adapter.getList().get(firstVisiblePosition);
+                dateTv.setText(DateUtil.date2str(monthData.getMonth(), DateUtil.FORMAT_CN_YM));
+            }
+        });
 
         if (selectedDate == null) {
             selectedDate = new Date();
