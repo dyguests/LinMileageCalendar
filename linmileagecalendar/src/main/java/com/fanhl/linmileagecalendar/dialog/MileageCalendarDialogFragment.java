@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.fanhl.linmileagecalendar.R;
 import com.fanhl.linmileagecalendar.common.OnRcvScrollListener;
 import com.fanhl.linmileagecalendar.constant.Constant;
+import com.fanhl.linmileagecalendar.model.MileageDay;
 import com.fanhl.linmileagecalendar.model.MonthData;
 import com.fanhl.linmileagecalendar.util.DateUtil;
 
@@ -40,9 +41,11 @@ public class MileageCalendarDialogFragment extends DialogFragment {
     private MonthAdapter adapter;
 
     private Date selectedDate;
+
+    private Callback callback;
     private MonthAdapter.OnDayClickListener onDayClickListener;
 
-    public static MileageCalendarDialogFragment newInstance(@NonNull Date selectedDate, @NonNull MonthAdapter.OnDayClickListener onDayClickListener) {
+    public static MileageCalendarDialogFragment newInstance(@NonNull Date selectedDate, @NonNull MonthAdapter.OnDayClickListener onDayClickListener, Callback callback) {
 
         Bundle args = new Bundle();
 
@@ -51,6 +54,7 @@ public class MileageCalendarDialogFragment extends DialogFragment {
 
         fragment.selectedDate = selectedDate;
         fragment.onDayClickListener = onDayClickListener;
+        fragment.callback = callback;
 
         return fragment;
     }
@@ -140,7 +144,7 @@ public class MileageCalendarDialogFragment extends DialogFragment {
                 adapter.replaceItems(monthDatas);
                 layoutManager.scrollToPositionWithOffset(DEFAULT_LOAD_COUNT - 1, 0);
 
-                // FIXME: 2017/3/2 加载MonthData的里程
+                refreshMonthDataMileages(monthDatas.get(DEFAULT_LOAD_COUNT - 1));
             } else if (compareMonth < 0) {
                 int offsetStart = DEFAULT_LOAD_COUNT / 2 - DEFAULT_LOAD_COUNT + 1;
                 int offsetEnd = DEFAULT_LOAD_COUNT / 2;
@@ -153,6 +157,8 @@ public class MileageCalendarDialogFragment extends DialogFragment {
                 List<MonthData> monthDatas = buildMonthDatas(baseDate, offsetStart, offsetEnd);
                 adapter.replaceItems(monthDatas);
                 layoutManager.scrollToPositionWithOffset(-offsetStart, 0);
+
+                refreshMonthDataMileages(monthDatas.get(-offsetStart));
             } else {
                 throw new RuntimeException("baseDate不可能超过当前月。");
             }
@@ -174,6 +180,15 @@ public class MileageCalendarDialogFragment extends DialogFragment {
         }
     }
 
+    /**
+     * 根据 monthData 中的 month 取得 List<Mileage/>
+     *
+     * @param monthData
+     */
+    private void refreshMonthDataMileages(MonthData monthData) {
+        callback.refreshMonthDataMileages(monthData);
+    }
+
     private List<MonthData> buildMonthDatas(Date baseDate, int offsetStart, int offsetEnd) {
         Date firstDayInMonth = DateUtil.getFirstDayInMonth(baseDate);
 
@@ -192,5 +207,13 @@ public class MileageCalendarDialogFragment extends DialogFragment {
 
     private MonthData buildMonthData(Date monthData) {
         return new MonthData(monthData, null);
+    }
+
+    public interface Callback {
+        void refreshMonthDataMileages(MonthData monthData);
+
+        interface RefreshMonthDataMileagesCallback {
+            void onResponse(MonthData monthData, List<MileageDay> mileageDays);
+        }
     }
 }

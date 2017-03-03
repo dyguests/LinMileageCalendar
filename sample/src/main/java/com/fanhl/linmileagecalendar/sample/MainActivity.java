@@ -12,6 +12,7 @@ import com.fanhl.linmileagecalendar.MonthView;
 import com.fanhl.linmileagecalendar.dialog.MileageCalendarDialogFragment;
 import com.fanhl.linmileagecalendar.dialog.MonthAdapter;
 import com.fanhl.linmileagecalendar.model.MileageDay;
+import com.fanhl.linmileagecalendar.model.MonthData;
 import com.fanhl.linmileagecalendar.util.DateUtil;
 
 import java.util.ArrayList;
@@ -47,12 +48,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showCalendarDialog() {
-        MileageCalendarDialogFragment.newInstance(selectedDate, new MonthAdapter.OnDayClickListener() {
-            @Override public void onDayClick(Date date) {
-                selectedDate = date;
-                Toast.makeText(MainActivity.this, date.toString(), Toast.LENGTH_SHORT).show();
-            }
-        }).show(getSupportFragmentManager(), MileageCalendarDialogFragment.TAG);
+        MileageCalendarDialogFragment
+                .newInstance(
+                        selectedDate,
+                        new MonthAdapter.OnDayClickListener() {
+                            @Override public void onDayClick(Date date) {
+                                selectedDate = date;
+                                Toast.makeText(MainActivity.this, date.toString(), Toast.LENGTH_SHORT).show();
+                            }
+                        },
+                        new MileageCalendarDialogFragment.Callback() {
+                            @Override public void refreshMonthDataMileages(MonthData monthData) {
+                                MainActivity.this.refreshMonthDataMileages(monthData);
+                            }
+                        }
+                )
+                .show(getSupportFragmentManager(), MileageCalendarDialogFragment.TAG);
     }
 
     private void initData() {
@@ -87,6 +98,45 @@ public class MainActivity extends AppCompatActivity {
                 bindData(list);
             }
         }.execute();
+    }
+
+    private void refreshMonthDataMileages(final MonthData monthData) {
+        new AsyncTask<Void, Void, Void>() {
+
+            private List<MileageDay> list;
+
+            @Override protected Void doInBackground(Void... params) {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                list = getMileageDays(monthData);
+
+                return null;
+            }
+
+            @Override protected void onPostExecute(Void aVoid) {
+                monthData.setMileageDays(list);
+            }
+        }.execute();
+    }
+
+    private List<MileageDay> getMileageDays(MonthData monthData) {
+        List<MileageDay> list = new ArrayList<>();
+
+        Date month = monthData.getMonth();
+        Date baseDate = DateUtil.getFirstDayInMonth(month);
+
+        int numberOfDayInMonth = DateUtil.getNumberOfDayInMonth(baseDate);
+        for (int i = 0; i < numberOfDayInMonth; i++) {
+            list.add(new MileageDay(baseDate, random.nextFloat() * 100));
+
+            baseDate = DateUtil.addDay(baseDate, 1);
+        }
+
+        return list;
     }
 
     private void bindData(List<Report> list) {

@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.fanhl.linmileagecalendar.MileageDayView;
 import com.fanhl.linmileagecalendar.MonthView;
@@ -40,6 +39,14 @@ public class MonthAdapter extends ListAdapter<MonthAdapter.ViewHolder, MonthData
         holder.bind(list.get(position));
     }
 
+    public OnDayClickListener getOnDayClickListener() {
+        return onDayClickListener;
+    }
+
+    public void setOnDayClickListener(OnDayClickListener onDayClickListener) {
+        this.onDayClickListener = onDayClickListener;
+    }
+
     public class ViewHolder extends ListAdapter.ViewHolder {
         private final TextView monthTotalTv;
         private final MonthView monthView;
@@ -54,7 +61,7 @@ public class MonthAdapter extends ListAdapter<MonthAdapter.ViewHolder, MonthData
                     if (onDayClickListener != null) {
                         onDayClickListener.onDayClick(dayView.getDate());
                     }
-                 }
+                }
             });
         }
 
@@ -82,14 +89,6 @@ public class MonthAdapter extends ListAdapter<MonthAdapter.ViewHolder, MonthData
             monthView.setDate(monthData.getMonth());
             monthView.setData(monthData.getMileageDays());
         }
-    }
-
-    public OnDayClickListener getOnDayClickListener() {
-        return onDayClickListener;
-    }
-
-    public void setOnDayClickListener(OnDayClickListener onDayClickListener) {
-        this.onDayClickListener = onDayClickListener;
     }
 
     public interface OnDayClickListener {

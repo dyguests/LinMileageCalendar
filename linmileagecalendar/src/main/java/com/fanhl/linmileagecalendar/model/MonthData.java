@@ -1,5 +1,7 @@
 package com.fanhl.linmileagecalendar.model;
 
+import android.util.Log;
+
 import java.util.Date;
 import java.util.List;
 
@@ -9,6 +11,8 @@ import java.util.List;
  * Created by fanhl on 2017/3/2.
  */
 public class MonthData {
+    public static final String TAG = MonthData.class.getSimpleName();
+
     Date month;
     List<MileageDay> mileageDays;
 
@@ -33,6 +37,10 @@ public class MonthData {
     }
 
     public void setMileageDays(List<MileageDay> mileageDays) {
+        if (this.mileageDays == mileageDays) {
+            return;
+        }
         this.mileageDays = mileageDays;
+        Log.d(TAG, "setMileageDays mileageDays:" + mileageDays);
     }
 }
