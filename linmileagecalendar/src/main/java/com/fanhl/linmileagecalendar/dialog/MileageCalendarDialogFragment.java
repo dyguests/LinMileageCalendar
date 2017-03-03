@@ -145,6 +145,9 @@ public class MileageCalendarDialogFragment extends DialogFragment {
                 layoutManager.scrollToPositionWithOffset(DEFAULT_LOAD_COUNT - 1, 0);
 
                 refreshMonthDataMileages(monthDatas.get(DEFAULT_LOAD_COUNT - 1));
+                for (int i = monthDatas.size() - 2; i >= 0; i--) {
+                    refreshMonthDataMileages(monthDatas.get(i));
+                }
             } else if (compareMonth < 0) {
                 int offsetStart = DEFAULT_LOAD_COUNT / 2 - DEFAULT_LOAD_COUNT + 1;
                 int offsetEnd = DEFAULT_LOAD_COUNT / 2;
@@ -159,12 +162,21 @@ public class MileageCalendarDialogFragment extends DialogFragment {
                 layoutManager.scrollToPositionWithOffset(-offsetStart, 0);
 
                 refreshMonthDataMileages(monthDatas.get(-offsetStart));
+                for (int i = 1 - offsetStart; i < monthDatas.size(); i++) {
+                    refreshMonthDataMileages(monthDatas.get(i));
+                }
+                for (int i = -offsetStart - 1; i >= 0; i--) {
+                    refreshMonthDataMileages(monthDatas.get(i));
+                }
             } else {
                 throw new RuntimeException("baseDate不可能超过当前月。");
             }
         } else if (offset < 0) {
             List<MonthData> monthDatas = buildMonthDatas(baseDate, -DEFAULT_LOAD_COUNT, -1);
             adapter.addFirstItems(monthDatas);
+            for (int i = monthDatas.size() - 1; i >= 0; i--) {
+                refreshMonthDataMileages(monthDatas.get(i));
+            }
         } else {
             long compareMonth = DateUtil.compareMonth(baseDate, new Date());
             //未超过当前月
@@ -176,6 +188,9 @@ public class MileageCalendarDialogFragment extends DialogFragment {
                     monthDatas = buildMonthDatas(baseDate, 1, (int) -compareMonth);
                 }
                 adapter.addItems(monthDatas);
+                for (int i = 0; i < monthDatas.size(); i++) {
+                    refreshMonthDataMileages(monthDatas.get(i));
+                }
             }
         }
     }

@@ -4,13 +4,14 @@ import android.util.Log;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Observable;
 
 /**
  * 存放一个月的里程数据，等
  * <p>
  * Created by fanhl on 2017/3/2.
  */
-public class MonthData {
+public class MonthData extends Observable{
     public static final String TAG = MonthData.class.getSimpleName();
 
     Date month;
@@ -42,5 +43,7 @@ public class MonthData {
         }
         this.mileageDays = mileageDays;
         Log.d(TAG, "setMileageDays mileageDays:" + mileageDays);
+        setChanged();
+        notifyObservers();
     }
 }
