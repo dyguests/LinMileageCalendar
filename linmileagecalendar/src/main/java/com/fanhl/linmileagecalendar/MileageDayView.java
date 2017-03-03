@@ -119,7 +119,7 @@ public class MileageDayView extends RelativeLayout {
             dayTv.setTextColor(getResources().getColorStateList(R.color.day_view_text_secondary));
         }
         if (DateUtil.isSameDay(date, new Date())) {
-            setSelected(true);
+            setToday(true);
         }
     }
 
@@ -143,6 +143,11 @@ public class MileageDayView extends RelativeLayout {
         }
 
         mileageTv.setText(mileageStr);
+    }
+
+    private void setToday(boolean isToday) {
+        dayTv.setEnabled(!isToday);
+        mileageTv.setEnabled(!isToday);
     }
 
     @Override public void setSelected(boolean selected) {

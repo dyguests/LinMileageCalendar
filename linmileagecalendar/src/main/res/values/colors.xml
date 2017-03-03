@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="day_view_text_color_secondary">#7f7f7f</color>
-    <color name="day_view_text_color_selected">#1c7ffd</color>
+    <color name="day_view_text_color_today">#1c7ffd</color>
+    <color name="day_view_text_color_selected">@android:color/white</color>
 </resources>
