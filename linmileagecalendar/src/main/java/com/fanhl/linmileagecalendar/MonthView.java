@@ -35,6 +35,8 @@ public class MonthView extends LinearLayout {
     private OnDayClickListener onDayClickListener;
     /** 是否显示标头（就是 日一二...六） */
     private boolean monthHeaderShowed = MONTH_HEADER_SHOWED_DEFAULT;
+    /** 仅显示记住当前所选中的Day */
+    private Date selectedDate;
 
     public MonthView(Context context) {
         super(context);
@@ -95,6 +97,10 @@ public class MonthView extends LinearLayout {
         for (int i = 0; i < weekCount; i++) {
             WeekView child = new WeekView(context);
             child.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1));
+
+            if (DateUtil.isInSameWeek(selectedDate, firstDayInMonth)) {
+                child.setSelectedDate(selectedDate);
+            }
 
             child.setDate(firstDayInMonth);
             if (data != null) {
@@ -168,6 +174,10 @@ public class MonthView extends LinearLayout {
 
     private void notifyDataChanged() {
         resetChildViews(getContext());
+    }
+
+    public void setSelectedDate(Date selectedDate) {
+        this.selectedDate = selectedDate;
     }
 
     /**

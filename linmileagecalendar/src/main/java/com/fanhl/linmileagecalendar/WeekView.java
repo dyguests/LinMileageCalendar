@@ -30,6 +30,7 @@ public class WeekView extends LinearLayout {
     private List<MileageDay> data;
 
     private OnDayClickListener onDayClickListener;
+    private Date selectedDate;
 
     public WeekView(Context context) {
         super(context);
@@ -82,6 +83,9 @@ public class WeekView extends LinearLayout {
             final MileageDayView view = new MileageDayView(context);
             view.setLayoutParams(new LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1));
 
+            if (DateUtil.isSameDay(selectedDate, date)) {
+                view.setSelected(true);
+            }
             view.setDate(date);
 
             if (data != null) {
@@ -143,6 +147,10 @@ public class WeekView extends LinearLayout {
 
     private void notifyDataChanged() {
         resetChildViews(getContext());
+    }
+
+    public void setSelectedDate(Date selectedDate) {
+        this.selectedDate = selectedDate;
     }
 
     /**

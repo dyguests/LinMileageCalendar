@@ -83,7 +83,7 @@ public class MileageCalendarDialogFragment extends DialogFragment {
     }
 
     private void initData() {
-        adapter = new MonthAdapter(getActivity(), recyclerView);
+        adapter = new MonthAdapter(getActivity(), recyclerView,selectedDate);
         adapter.setOnDayClickListener(new MonthAdapter.OnDayClickListener() {
             @Override public void onDayClick(Date date) {
                 if (DateUtil.isAfterByDay(date, new Date())) {

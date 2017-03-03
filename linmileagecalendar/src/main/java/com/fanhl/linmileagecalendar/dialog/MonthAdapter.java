@@ -30,10 +30,16 @@ import java.util.Observer;
 public class MonthAdapter extends ListAdapter<MonthAdapter.ViewHolder, MonthData> {
     public static final String TAG = MonthAdapter.class.getSimpleName();
 
+    private final Date selectedDate;
+
     OnDayClickListener onDayClickListener;
 
-    public MonthAdapter(Context context, RecyclerView recyclerView) {
+    public MonthAdapter(Context context, RecyclerView recyclerView, Date selectedDate) {
         super(context, recyclerView);
+        if (selectedDate == null) {
+            selectedDate = new Date();
+        }
+        this.selectedDate = selectedDate;
     }
 
     @Override public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -87,6 +93,9 @@ public class MonthAdapter extends ListAdapter<MonthAdapter.ViewHolder, MonthData
             monthData.addObserver(this);
 
             setMonthTotal(monthData);
+            if (DateUtil.isSameMonth(monthData.getMonth(),selectedDate)) {
+                monthView.setSelectedDate(selectedDate);
+            }
             monthView.setDate(monthData.getMonth());
             monthView.setData(monthData.getMileageDays());
         }

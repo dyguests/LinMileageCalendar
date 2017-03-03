@@ -284,4 +284,25 @@ public class DateUtil {
     public static String date2short(Date date) {
         return date2str(date, FORMAT_SHORT);
     }
+
+    /**
+     * 判断两个日期是不是在同一月
+     *
+     * @param date1
+     * @param date2
+     * @return
+     */
+    public static boolean isSameMonth(Date date1, Date date2) {
+        if (date1 == null || date2 == null) {
+            return false;
+        }
+
+        Calendar cal1 = Calendar.getInstance();
+        Calendar cal2 = Calendar.getInstance();
+        cal1.setTime(date1);
+        cal2.setTime(date2);
+
+        return cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) &&
+                cal1.get(Calendar.MONTH) == cal2.get(Calendar.MONTH);
+    }
 }
