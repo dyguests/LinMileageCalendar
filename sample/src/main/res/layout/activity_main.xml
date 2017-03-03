@@ -12,10 +12,10 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.fanhl.linmileagecalendar.sample.MainActivity">
 
-    <com.fanhl.linmileagecalendar.MonthView
-        android:id="@+id/monthView"
+    <com.fanhl.linmileagecalendar.CircleDecorator
+        android:id="@+id/circleDecorator"
         android:layout_width="match_parent"
-        android:layout_height="300dp"/>
+        android:layout_height="100dp"/>
 
     <Button
         android:id="@+id/mileageBtn"

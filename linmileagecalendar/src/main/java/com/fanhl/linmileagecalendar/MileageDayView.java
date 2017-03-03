@@ -6,6 +6,7 @@ import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -23,6 +24,7 @@ public class MileageDayView extends RelativeLayout {
     private Date date;
     private Float mileage;
 
+    private CircleDecorator circleDecorator;
     private TextView dayTv;
     private TextView mileageTv;
 
@@ -61,6 +63,13 @@ public class MileageDayView extends RelativeLayout {
 //        layout_677.width = LayoutParams.MATCH_PARENT;
 //        layout_677.height = LayoutParams.MATCH_PARENT;
 //        relativeLayout_144.setLayoutParams(layout_677);
+
+        circleDecorator = new CircleDecorator(context);
+        circleDecorator.setId(R.id.circleDecorator);
+        LayoutParams layout_649 = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        circleDecorator.setLayoutParams(layout_649);
+        addView(circleDecorator);
+
 
         LinearLayout linearLayout_1 = new LinearLayout(context);
         linearLayout_1.setGravity(Gravity.CENTER);
@@ -152,7 +161,17 @@ public class MileageDayView extends RelativeLayout {
 
     @Override public void setSelected(boolean selected) {
         super.setSelected(selected);
+        circleDecorator.setSelected(selected);
         dayTv.setSelected(selected);
         mileageTv.setSelected(selected);
+        invalidate();
     }
+//
+//    @Override public void draw(Canvas canvas) {
+//        super.draw(canvas);
+////        if (isSelected()) {
+//        canvas.drawColor(Color.RED);
+////        }
+//        canvas.drawText("Text", 0, 0, new TextPaint());
+//    }
 }

@@ -7,8 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
-import com.fanhl.linmileagecalendar.MileageDayView;
-import com.fanhl.linmileagecalendar.MonthView;
 import com.fanhl.linmileagecalendar.dialog.MileageCalendarDialogFragment;
 import com.fanhl.linmileagecalendar.dialog.MonthAdapter;
 import com.fanhl.linmileagecalendar.model.MileageDay;
@@ -22,7 +20,6 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
-    private MonthView monthView;
     private Random random;
     private Date selectedDate;
 
@@ -36,8 +33,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void assignViews() {
-        this.monthView = (MonthView) findViewById(R.id.monthView);
-
         selectedDate = new Date();
         findViewById(R.id.mileageBtn)
                 .setOnClickListener(new View.OnClickListener() {
@@ -67,14 +62,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initData() {
-        monthView.setDate(DateUtil.getFirstDayInMonth(new Date()));
+//        monthView.setDate(DateUtil.getFirstDayInMonth(new Date()));
         random = new Random();
 
-        monthView.setOnDayClickListener(new MonthView.OnDayClickListener() {
-            @Override public void onDayClick(MileageDayView dayView) {
-                Toast.makeText(MainActivity.this, dayView.getDate().toString(), Toast.LENGTH_SHORT).show();
-            }
-        });
+//        monthView.setOnDayClickListener(new MonthView.OnDayClickListener() {
+//            @Override public void onDayClick(MileageDayView dayView) {
+//                Toast.makeText(MainActivity.this, dayView.getDate().toString(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
     }
 
     private void refreshData() {
@@ -168,7 +163,6 @@ public class MainActivity extends AppCompatActivity {
             data.add(new MileageDay(report.getDate(), (float) report.getMileage()));
         }
 
-        monthView.setData(data);
     }
 
     @NonNull private ArrayList<Report> getReports() {
