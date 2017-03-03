@@ -139,6 +139,8 @@ public class MileageCalendarDialogFragment extends DialogFragment {
                 List<MonthData> monthDatas = buildMonthDatas(baseDate, 1 - DEFAULT_LOAD_COUNT, 0);
                 adapter.replaceItems(monthDatas);
                 layoutManager.scrollToPositionWithOffset(DEFAULT_LOAD_COUNT - 1, 0);
+
+                // FIXME: 2017/3/2 加载MonthData的里程
             } else if (compareMonth < 0) {
                 int offsetStart = DEFAULT_LOAD_COUNT / 2 - DEFAULT_LOAD_COUNT + 1;
                 int offsetEnd = DEFAULT_LOAD_COUNT / 2;

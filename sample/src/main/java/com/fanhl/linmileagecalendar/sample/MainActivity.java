@@ -41,16 +41,18 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.mileageBtn)
                 .setOnClickListener(new View.OnClickListener() {
                     @Override public void onClick(View v) {
-                        MileageCalendarDialogFragment.newInstance(selectedDate, new MonthAdapter.OnDayClickListener() {
-                            @Override public void onDayClick(Date date) {
-                                selectedDate = date;
-                                Toast.makeText(MainActivity.this, date.toString(), Toast.LENGTH_SHORT).show();
-                            }
-                        })
-//                MileageCalendarDialogFragment.newInstance(DateUtil.addMonth(new Date(),-5))
-                                .show(getSupportFragmentManager(), MileageCalendarDialogFragment.TAG);
+                        showCalendarDialog();
                     }
                 });
+    }
+
+    private void showCalendarDialog() {
+        MileageCalendarDialogFragment.newInstance(selectedDate, new MonthAdapter.OnDayClickListener() {
+            @Override public void onDayClick(Date date) {
+                selectedDate = date;
+                Toast.makeText(MainActivity.this, date.toString(), Toast.LENGTH_SHORT).show();
+            }
+        }).show(getSupportFragmentManager(), MileageCalendarDialogFragment.TAG);
     }
 
     private void initData() {
